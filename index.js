@@ -2,51 +2,51 @@ const entryForm = document.getElementById("entry-form");
 const entriesSection = document.getElementById("entries");
 const entryTextbox = document.getElementsByClassName("entry-textbox")[0];
 const submitButton = document.getElementsByClassName("button")[0];
+const titleTextbox = document.getElementsByClassName("title-textbox")[0];
 const entriesNav = document.getElementById("entries-nav");
 const entryDisplay = document.getElementById("entry-display");
 
-let entryCount = 1;
-
-const entries = [];
-
-function addEntryToDom(event) {
-  event.preventDefault();
-  let entry = {};
-  let date = new Date();
-  entry.title = `Entry ${entryCount}`;
-  entry.entry = entryTextbox.value;
-  entry.date = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  entry.time = `${date.getHours()}:${date.getMinutes()}`;
-  entries.push(entry);
-  console.log(entries);
-  entryTextbox.value = "";
-}
-
-function addButtonToNavigation(event) {
-  event.preventDefault();
-  let newButton = document.createElement("button");
-  newButton.classList.add("nav-button");
-  newButton.textContent = `Entry: ${entryCount}`;
-  entryCount++;
-  entriesNav.append(newButton);
-  newButton.addEventListener("click", () =>
-    displayEntry(newButton.textContent[newButton.textContent.length - 1] - 1)
+if (JSON.parse(localStorage.getItem("entries"))) {
+  document.onload = generateEntryButtons(
+    JSON.parse(localStorage.getItem("entries"))
   );
 }
 
-function displayEntry(entryNumber) {
-  entryDisplay.innerHTML = `
-    <h2>${entries[entryNumber].title}</h2> 
-    <h3>${entries[entryNumber].date}</h3>
-    <p>${entries[entryNumber].time}</p>
-    <p>${entries[entryNumber].entry}</p>
-  `;
-}
+entryForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let entry = {};
+  entry.entry = entryTextbox.value;
+  entry.title = titleTextbox.value;
+  entry.id = localStorage.length
+    ? JSON.parse(localStorage.getItem("entries")).length + 1
+    : 1;
+  if (localStorage.length > 0 && entryTextbox.value.length > 0) {
+    let entries = JSON.parse(window.localStorage.getItem("entries"));
+    entries.push(entry);
+    localStorage.setItem("entries", JSON.stringify(entries));
+  } else if (entryTextbox.value.length > 0) {
+    let entries = [];
+    entries.push(entry);
+    localStorage.setItem("entries", JSON.stringify(entries));
+  }
 
-entryForm.addEventListener("submit", addEntryToDom);
-entryForm.addEventListener("submit", addButtonToNavigation);
-
-entryForm.addEventListener("keypress", (e) => {
-  let d = new Date().toDateString();
-  console.log(d);
+  if (localStorage.length) {
+    generateEntryButtons(JSON.parse(localStorage.getItem("entries")));
+  }
 });
+
+function generateEntryButtons(entriesArray) {
+  if (entriesArray == undefined || entriesArray.length < 1) {
+    entriesNav.innerText = "";
+  }
+  if (entriesArray.length > 0) {
+    entriesNav.innerText = "";
+    entriesArray.forEach((entry) => {
+      let entryButton = document.createElement("button");
+      entryButton.classList.add("nav-button");
+      entryButton.textContent = `${entry.title}`;
+      entriesNav.append(entryButton);
+      entryButton.addEventListener("click", () => console.log(entry));
+    });
+  }
+}
