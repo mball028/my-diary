@@ -23,32 +23,50 @@ body {
 }
 
 .entry-textbox:focus {
-    outline: none;
+  outline: none;
 }
 
 #entry-form {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 #entries {
-    width: 20em;
-    height: 10em;
-    padding: 1em;
-    border-radius: 25px;
-    margin-bottom: 0.5em;
-    border: unset;
-    background-color:  rgb(58, 58, 169);
-    color: whitesmoke;
+  width: 20em;
+  height: auto;
+  padding: 1em;
+  border-radius: 25px;
+  margin-bottom: 0.5em;
+  border: unset;
+  background-color: rgb(58, 58, 169);
+  color: whitesmoke;
+}
+
+#entries-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-bottom: 1em;
 }
 
 .button {
-    color: whitesmoke;
-    background-color: rgb(58, 58, 169);
-    padding: 7px 7px;
-    border-radius: 25px;
-    border: unset;
-    margin-left: 15em;
+  color: whitesmoke;
+  background-color: rgb(58, 58, 169);
+  padding: 7px 7px;
+  border-radius: 25px;
+  border: unset;
+  margin-left: 15em;
 }
-.button:hover {
-    cursor: pointer;
+.button:hover,
+.nav-button {
+  cursor: pointer;
+}
+
+.nav-button {
+  border-radius: 5px;
+  border: unset;
+  margin: 2px;
+  padding: 3px;
+  background-color: rgba(141, 141, 247, 0.843);
+  color: inherit;
+  border: 2px solid rgb(100, 214, 255);
 }
