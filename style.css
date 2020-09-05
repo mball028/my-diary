@@ -6,6 +6,11 @@ body {
   justify-content: center;
 }
 
+.entry-date-text {
+  font-size: smaller;
+  font-style: italic;
+}
+
 .title {
   color: rgb(58, 58, 169);
   text-align: center;
@@ -36,7 +41,7 @@ body {
 }
 
 #entries {
-  width: 20em;
+  width: 30em;
   height: auto;
   padding: 1em;
   border-radius: 25px;
@@ -51,6 +56,14 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   padding-bottom: 1em;
+}
+
+.entry-title {
+  margin: 4px;
+  text-align: center;
+  border: 2px solid whitesmoke;
+  width: 65%;
+  margin: auto;
 }
 
 .button {
